@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Wholesale Jamaica</title>
+  <link rel="stylesheet" href="/src/styles/globals.css">
+</head>
+<body class="bg-dark-900">
+  <!-- Sidebar Navigation -->
+  <aside class="fixed left-0 top-0 w-64 h-screen bg-dark-800 border-r border-dark-700 pt-4 overflow-y-auto">
+    <div class="px-6 py-4">
+      <h1 class="text-2xl font-bold">Wholesale Admin</h1>
+    </div>
+
+    <nav class="space-y-2 px-4">
+      <a href="#" onclick="switchTab('overview')" class="nav-tab active flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-dark-700 cursor-pointer">
+        <span>📊</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" onclick="switchTab('orders')" class="nav-tab flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-dark-700 cursor-pointer">
+        <span>📦</span>
+        <span>Orders</span>
+      </a>
+      <a href="#" onclick="switchTab('inventory')" class="nav-tab flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-dark-700 cursor-pointer">
+        <span>📋</span>
+        <span>Inventory</span>
+      </a>
+      <a href="#" onclick="switchTab('customers')" class="nav-tab flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-dark-700 cursor-pointer">
+        <span>👥</span>
+        <span>Customers</span>
+      </a>
+      <a href="#" onclick="switchTab('analytics')" class="nav-tab flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-dark-700 cursor-pointer">
+        <span>📈</span>
+        <span>Analytics</span>
+      </a>
+      <a href="#" onclick="switchTab('payments')" class="nav-tab flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-dark-700 cursor-pointer">
+        <span>💳</span>
+        <span>Payments</span>
+      </a>
+      <a href="#" onclick="switchTab('promotions')" class="nav-tab flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-dark-700 cursor-pointer">
+        <span>🎁</span>
+        <span>Promotions</span>
+      </a>
+      <a href="#" onclick="logout()" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-dark-700 text-accent-red">
+        <span>🚪</span>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-64 p-8">
+    <!-- Top Bar -->
+    <div class="flex justify-between items-center mb-8">
+      <h1 id="page-title" class="text-4xl font-bold">Dashboard</h1>
+      <div class="flex items-center space-x-4">
+        <input type="date" class="px-4 py-2 bg-dark-800 border border-dark-700 rounded-lg">
+        <button class="btn btn-primary">Export</button>
+      </div>
+    </div>
+
+    <!-- Dashboard Overview (Default Tab) -->
+    <div id="overview" class="tab-content">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="card">
+          <p class="text-gray-400 text-sm mb-2">Total Orders</p>
+          <p class="text-4xl font-bold">2,847</p>
+          <p class="text-green-400 text-sm mt-2">↑ 12% this month</p>
+        </div>
+        <div class="card">
+          <p class="text-gray-400 text-sm mb-2">Revenue</p>
+          <p class="text-4xl font-bold">$485K</p>
+          <p class="text-green-400 text-sm mt-2">↑ 8% this month</p>
+        </div>
+        <div class="card">
+          <p class="text-gray-400 text-sm mb-2">Active Customers</p>
+          <p class="text-4xl font-bold">1,243</p>
+          <p class="text-green-400 text-sm mt-2">↑ 5% this month</p>
+        </div>
+        <div class="card">
+          <p class="text-gray-400 text-sm mb-2">Avg. Order Value</p>
+          <p class="text-4xl font-bold">$170</p>
+          <p class="text-accent-red text-sm mt-2">↓ 2% this month</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 card">
+          <h2 class="text-2xl font-bold mb-6">Revenue Trend (30 days)</h2>
+          <div class="h-64 bg-dark-700/50 rounded-lg flex items-center justify-center text-gray-400">
+            📊 Chart visualization (integrate with Chart.js)
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="text-2xl font-bold mb-4">Recent Orders</h2>
+          <div class="space-y-3 max-h-80 overflow-y-auto">
+            <div class="pb-3 border-b border-dark-700">
+              <p class="text-sm"><strong>#ORD-2024-1234</strong> - $2,450</p>
+              <p class="text-xs text-gray-400">Kingston Restaurants • Delivered</p>
+            </div>
+            <div class="pb-3 border-b border-dark-700">
+              <p class="text-sm"><strong>#ORD-2024-1233</strong> - $1,890</p>
+              <p class="text-xs text-gray-400">Downtown Supermarket • In Transit</p>
+            </div>
+            <div class="pb-3 border-b border-dark-700">
+              <p class="text-sm"><strong>#ORD-2024-1232</strong> - $3,120</p>
+              <p class="text-xs text-gray-400">Caribbean Mart Chain • Processing</p>
+            </div>
+            <div class="pb-3 border-b border-dark-700">
+              <p class="text-sm"><strong>#ORD-2024-1231</strong> - $1,560</p>
+              <p class="text-xs text-gray-400">Island Restaurant • Delivered</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Tab -->
+    <div id="orders" class="tab-content hidden">
+      <div class="card">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">Orders Management</h2>
+          <input type="search" placeholder="Search order #..." class="px-4 py-2 bg-dark-800 border border-dark-700 rounded-lg">
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="border-b border-dark-700">
+              <tr>
+                <th class="text-left py-3">Order ID</th>
+                <th class="text-left py-3">Customer</th>
+                <th class="text-left py-3">Amount</th>
+                <th class="text-left py-3">Status</th>
+                <th class="text-left py-3">Date</th>
+                <th class="text-left py-3">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-dark-700 hover:bg-dark-700/50">
+                <td class="py-3">#ORD-2024-1234</td>
+                <td>Kingston Restaurants</td>
+                <td>$2,450</td>
+                <td><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">Delivered</span></td>
+                <td>2024-05-05</td>
+                <td><a href="#" class="text-primary-600 hover:underline">View</a></td>
+              </tr>
+              <tr class="border-b border-dark-700 hover:bg-dark-700/50">
+                <td class="py-3">#ORD-2024-1233</td>
+                <td>Downtown Supermarket</td>
+                <td>$1,890</td>
+                <td><span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs">In Transit</span></td>
+                <td>2024-05-05</td>
+                <td><a href="#" class="text-primary-600 hover:underline">View</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inventory Tab -->
+    <div id="inventory" class="tab-content hidden">
+      <div class="card">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">Inventory Management</h2>
+          <button class="btn btn-primary">Add Product</button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="border-b border-dark-700">
+              <tr>
+                <th class="text-left py-3">Product</th>
+                <th class="text-left py-3">SKU</th>
+                <th class="text-left py-3">Stock</th>
+                <th class="text-left py-3">Status</th>
+                <th class="text-left py-3">Price</th>
+                <th class="text-left py-3">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-dark-700 hover:bg-dark-700/50">
+                <td class="py-3">Bulk Rice (25kg)</td>
+                <td>RICE025</td>
+                <td>234 cases</td>
+                <td><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">In Stock</span></td>
+                <td>$85</td>
+                <td><a href="#" class="text-primary-600 hover:underline">Edit</a></td>
+              </tr>
+              <tr class="border-b border-dark-700 hover:bg-dark-700/50">
+                <td class="py-3">Canned Goods Mix</td>
+                <td>CANS001</td>
+                <td>45 cases</td>
+                <td><span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs">Low Stock</span></td>
+                <td>$120</td>
+                <td><a href="#" class="text-primary-600 hover:underline">Edit</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customers Tab -->
+    <div id="customers" class="tab-content hidden">
+      <div class="card">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">Customer Management</h2>
+          <input type="search" placeholder="Search customers..." class="px-4 py-2 bg-dark-800 border border-dark-700 rounded-lg">
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="border-b border-dark-700">
+              <tr>
+                <th class="text-left py-3">Name</th>
+                <th class="text-left py-3">Business</th>
+                <th class="text-left py-3">Orders</th>
+                <th class="text-left py-3">Spent</th>
+                <th class="text-left py-3">Status</th>
+                <th class="text-left py-3">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-dark-700 hover:bg-dark-700/50">
+                <td class="py-3">Marcus Johnson</td>
+                <td>Kingston Restaurants</td>
+                <td>45</td>
+                <td>$18,500</td>
+                <td><span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs">Gold</span></td>
+                <td><a href="#" class="text-primary-600 hover:underline">View</a></td>
+              </tr>
+              <tr class="border-b border-dark-700 hover:bg-dark-700/50">
+                <td class="py-3">Sarah Diamond</td>
+                <td>Downtown Supermarket</td>
+                <td>32</td>
+                <td>$12,400</td>
+                <td><span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs">Silver</span></td>
+                <td><a href="#" class="text-primary-600 hover:underline">View</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div id="analytics" class="tab-content hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card">
+          <h3 class="text-xl font-bold mb-4">Top Products</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span>Bulk Rice</span>
+              <span class="text-primary-600">$28,450</span>
+            </div>
+            <div class="w-full bg-dark-700 rounded-full h-2">
+              <div class="bg-primary-600 h-2 rounded-full" style="width: 85%"></div>
+            </div>
+            <div class="flex justify-between items-center">
+              <span>Canned Goods</span>
+              <span class="text-primary-600">$18,900</span>
+            </div>
+            <div class="w-full bg-dark-700 rounded-full h-2">
+              <div class="bg-primary-600 h-2 rounded-full" style="width: 60%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="text-xl font-bold mb-4">Customer Segments</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between"><span>Restaurants</span><span>42%</span></div>
+            <div class="flex justify-between"><span>Supermarkets</span><span>35%</span></div>
+            <div class="flex justify-between"><span>Mini Marts</span><span>18%</span></div>
+            <div class="flex justify-between"><span>Others</span><span>5%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payments Tab -->
+    <div id="payments" class="tab-content hidden">
+      <div class="card">
+        <h2 class="text-2xl font-bold mb-6">Payment Transactions</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="border-b border-dark-700">
+              <tr>
+                <th class="text-left py-3">Date</th>
+                <th class="text-left py-3">Order</th>
+                <th class="text-left py-3">Method</th>
+                <th class="text-left py-3">Amount</th>
+                <th class="text-left py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-dark-700">
+                <td class="py-3">2024-05-05</td>
+                <td>#ORD-1234</td>
+                <td>Credit Card</td>
+                <td>$2,450</td>
+                <td><span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promotions Tab -->
+    <div id="promotions" class="tab-content hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card">
+          <h2 class="text-2xl font-bold mb-6">Create Promotion</h2>
+          <form class="space-y-4">
+            <input type="text" placeholder="Promo Code" class="w-full px-4 py-2 bg-dark-800 border border-dark-700 rounded-lg">
+            <select class="w-full px-4 py-2 bg-dark-800 border border-dark-700 rounded-lg">
+              <option>Select Type...</option>
+              <option>Percentage Discount</option>
+              <option>Fixed Amount</option>
+              <option>Free Shipping</option>
+            </select>
+            <input type="number" placeholder="Value" class="w-full px-4 py-2 bg-dark-800 border border-dark-700 rounded-lg">
+            <input type="date" class="w-full px-4 py-2 bg-dark-800 border border-dark-700 rounded-lg">
+            <button type="submit" class="w-full btn btn-primary">Create Promotion</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h2 class="text-2xl font-bold mb-6">Active Promotions</h2>
+          <div class="space-y-3">
+            <div class="p-3 bg-dark-700 rounded-lg">
+              <p class="font-bold">SAVE10</p>
+              <p class="text-sm text-gray-400">10% off • Expires: 2024-05-31</p>
+            </div>
+            <div class="p-3 bg-dark-700 rounded-lg">
+              <p class="font-bold">FREESHIP</p>
+              <p class="text-sm text-gray-400">Free shipping • Expires: 2024-06-15</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { isAuthenticated, logout as logoutUser } from '/src/services/authService.js';
+
+    // Check authentication
+    if (!isAuthenticated()) {
+      window.location.href = '/login';
+    }
+
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
+      });
+
+      // Remove active class from nav
+      document.querySelectorAll('.nav-tab').forEach(nav => {
+        nav.classList.remove('active');
+      });
+
+      // Show selected tab
+      const tab = document.getElementById(tabName);
+      if (tab) tab.classList.remove('hidden');
+
+      // Update active nav
+      event.target.closest('.nav-tab')?.classList.add('active');
+
+      // Update page title
+      const titles = {
+        'overview': 'Dashboard',
+        'orders': 'Orders Management',
+        'inventory': 'Inventory Management',
+        'customers': 'Customer Management',
+        'analytics': 'Analytics',
+        'payments': 'Payment Transactions',
+        'promotions': 'Promotions'
+      };
+      document.getElementById('page-title').textContent = titles[tabName] || 'Dashboard';
+    }
+
+    window.switchTab = switchTab;
+    window.logout = () => {
+      logoutUser();
+    };
+  </script>
+</body>
+</html>

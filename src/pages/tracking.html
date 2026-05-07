@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Your Order | Wholesale Jamaica</title>
+  <link rel="stylesheet" href="/src/styles/globals.css">
+</head>
+<body class="bg-dark-900">
+  <nav class="fixed top-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-700 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-gradient-to-br from-primary-600 to-accent-blue rounded-lg"></div>
+        <span class="font-satoshi font-bold text-lg">Wholesale JM</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="pt-20 max-w-4xl mx-auto px-4 py-12">
+    <!-- Search Section -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">Track Your Order</h1>
+      <p class="text-gray-400 mb-8">Enter your tracking number to see real-time delivery status</p>
+      
+      <div class="flex gap-4">
+        <input type="text" id="tracking-input" placeholder="Enter tracking number (e.g., ORD-2024-1234)" class="flex-1 px-6 py-4 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600 focus:ring-2 focus:ring-primary-600/30">
+        <button id="track-btn" class="btn btn-primary">Track</button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading" class="hidden text-center py-12">
+      <p class="text-gray-400">Loading tracking information...</p>
+    </div>
+
+    <!-- Tracking Details -->
+    <div id="tracking-details" class="hidden space-y-8">
+      <!-- Order Header -->
+      <div class="card">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div>
+            <p class="text-gray-400 text-sm mb-1">Order Number</p>
+            <p class="font-bold text-lg" id="order-number">ORD-2024-1234</p>
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm mb-1">Status</p>
+            <p class="font-bold text-lg" id="order-status">Dispatched</p>
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm mb-1">Estimated Delivery</p>
+            <p class="font-bold text-lg" id="estimated-delivery">Today</p>
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm mb-1">Total Amount</p>
+            <p class="font-bold text-lg" id="total-amount">$2,450</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Progress -->
+      <div class="card">
+        <h2 class="text-2xl font-bold mb-8">Delivery Progress</h2>
+        
+        <div class="space-y-6">
+          <div class="flex items-start">
+            <div class="flex flex-col items-center mr-8">
+              <div id="step-1" class="w-12 h-12 rounded-full border-2 border-primary-600 flex items-center justify-center font-bold bg-primary-600/20">
+                ✓
+              </div>
+              <div class="h-20 w-1 bg-primary-600 mt-2"></div>
+            </div>
+            <div>
+              <p class="font-bold text-lg">Order Processing</p>
+              <p class="text-gray-400 text-sm">May 5, 2024</p>
+              <p class="text-gray-500 text-sm">Your order has been received and is being processed</p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="flex flex-col items-center mr-8">
+              <div id="step-2" class="w-12 h-12 rounded-full border-2 border-primary-600 flex items-center justify-center font-bold bg-primary-600/20">
+                ✓
+              </div>
+              <div class="h-20 w-1 bg-primary-600 mt-2"></div>
+            </div>
+            <div>
+              <p class="font-bold text-lg">Packed & Ready</p>
+              <p class="text-gray-400 text-sm">May 5, 2024 • 2:30 PM</p>
+              <p class="text-gray-500 text-sm">Your items have been packed and prepared for dispatch</p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="flex flex-col items-center mr-8">
+              <div id="step-3" class="w-12 h-12 rounded-full border-2 border-primary-600 flex items-center justify-center font-bold bg-primary-600/20">
+                ✓
+              </div>
+              <div class="h-20 w-1 bg-primary-600 mt-2"></div>
+            </div>
+            <div>
+              <p class="font-bold text-lg">Out for Delivery</p>
+              <p class="text-gray-400 text-sm">May 6, 2024 • 8:30 AM</p>
+              <p class="text-gray-500 text-sm">Your order is on its way to you</p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="flex flex-col items-center mr-8">
+              <div id="step-4" class="w-12 h-12 rounded-full border-2 border-dark-600 flex items-center justify-center">
+                📍
+              </div>
+            </div>
+            <div>
+              <p class="font-bold text-lg">Delivery in Progress</p>
+              <p class="text-gray-400 text-sm">Expected: Today before 5 PM</p>
+              <p class="text-gray-500 text-sm">Driver is nearby. You can track real-time location below.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery Information -->
+      <div class="card">
+        <h2 class="text-2xl font-bold mb-6">Delivery Information</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="font-bold mb-3">Driver Details</h3>
+            <div class="space-y-2 text-gray-400">
+              <p><strong class="text-white">Name:</strong> John Davis</p>
+              <p><strong class="text-white">Vehicle:</strong> Toyota Hiace (Red)</p>
+              <p><strong class="text-white">License:</strong> KNG-001</p>
+              <p><strong class="text-white">Phone:</strong> +1 (876) 555-0100</p>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold mb-3">Delivery Location</h3>
+            <div class="space-y-2 text-gray-400">
+              <p id="delivery-address">Kingston, Kingston & St Andrew</p>
+              <div class="w-full h-48 bg-dark-700 rounded-lg flex items-center justify-center">
+                🗺️ Live map (integrate Google Maps API)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nearby Notification -->
+      <div class="card bg-gradient-accent">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-lg mb-1">Driver is Nearby!</h3>
+            <p class="text-gray-100">ETA: 15 minutes</p>
+          </div>
+          <button class="btn btn-primary">Contact Driver</button>
+        </div>
+      </div>
+
+      <!-- Order Items -->
+      <div class="card">
+        <h2 class="text-2xl font-bold mb-6">Order Items</h2>
+        <div id="order-items" class="space-y-3">
+          <!-- Items will be populated -->
+        </div>
+      </div>
+
+      <!-- Support Section -->
+      <div class="card">
+        <h2 class="text-2xl font-bold mb-6">Need Help?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <a href="#" class="p-4 border border-dark-700 rounded-lg hover:border-primary-600 text-center">
+            <p class="font-bold mb-2">💬 Chat Support</p>
+            <p class="text-sm text-gray-400">Live chat available 24/7</p>
+          </a>
+          <a href="#" class="p-4 border border-dark-700 rounded-lg hover:border-primary-600 text-center">
+            <p class="font-bold mb-2">📞 Call Us</p>
+            <p class="text-sm text-gray-400">+1 (876) 555-0000</p>
+          </a>
+          <a href="#" class="p-4 border border-dark-700 rounded-lg hover:border-primary-600 text-center">
+            <p class="font-bold mb-2">💬 WhatsApp</p>
+            <p class="text-sm text-gray-400">Message us on WhatsApp</p>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="error" class="hidden">
+      <div class="card border-accent-red bg-accent-red/10 text-center py-12">
+        <p class="text-xl font-bold mb-4">Tracking Not Found</p>
+        <p class="text-gray-400 mb-6">We couldn't find an order with that tracking number.</p>
+        <p class="text-sm text-gray-500">Please check your tracking number and try again. Orders are typically trackable within 24 hours of placement.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { getOrderTracking } from '/src/services/trackingService.js';
+
+    const trackingInput = document.getElementById('tracking-input');
+    const trackBtn = document.getElementById('track-btn');
+    const loadingEl = document.getElementById('loading');
+    const trackingDetailsEl = document.getElementById('tracking-details');
+    const errorEl = document.getElementById('error');
+
+    trackBtn.addEventListener('click', async () => {
+      const trackingNumber = trackingInput.value.trim();
+
+      if (!trackingNumber) {
+        alert('Please enter a tracking number');
+        return;
+      }
+
+      try {
+        loadingEl.classList.remove('hidden');
+        trackingDetailsEl.classList.add('hidden');
+        errorEl.classList.add('hidden');
+
+        const tracking = await getOrderTracking(trackingNumber);
+
+        // Mock data for demo
+        displayTracking({
+          orderNumber: trackingNumber,
+          status: 'Out for Delivery',
+          estimatedDelivery: 'Today',
+          totalAmount: '$2,450',
+          items: [
+            { name: 'Bulk Rice (25kg)', quantity: 5, price: 85 },
+            { name: 'Canned Goods Mix', quantity: 10, price: 120 }
+          ],
+          deliveryAddress: 'Kingston, Kingston & St Andrew',
+          deliveryName: 'John Davis',
+          ...tracking
+        });
+
+        loadingEl.classList.add('hidden');
+        trackingDetailsEl.classList.remove('hidden');
+      } catch (error) {
+        loadingEl.classList.add('hidden');
+        errorEl.classList.remove('hidden');
+      }
+    });
+
+    function displayTracking(data) {
+      document.getElementById('order-number').textContent = data.orderNumber;
+      document.getElementById('order-status').textContent = data.status;
+      document.getElementById('estimated-delivery').textContent = data.estimatedDelivery;
+      document.getElementById('total-amount').textContent = data.totalAmount;
+      document.getElementById('delivery-address').textContent = data.deliveryAddress;
+
+      // Items
+      const itemsHTML = (data.items || []).map(item => `
+        <div class="flex justify-between p-3 bg-dark-700 rounded-lg">
+          <span>${item.name} x${item.quantity}</span>
+          <span>$${(item.price * item.quantity).toFixed(2)}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('order-items').innerHTML = itemsHTML;
+    }
+
+    // Allow Enter key to trigger search
+    trackingInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') trackBtn.click();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed | Wholesale Jamaica</title>
+  <link rel="stylesheet" href="/src/styles/globals.css">
+</head>
+<body class="bg-dark-900">
+  <div class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="max-w-2xl w-full">
+      <!-- Success Animation -->
+      <div class="text-center mb-12">
+        <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
+          <span class="text-4xl">✓</span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Order Confirmed!</h1>
+        <p class="text-xl text-gray-400 mb-2">Your wholesale order has been successfully placed</p>
+        <p class="text-gray-500"id="order-number">Order #ORD-2024-001234</p>
+      </div>
+
+      <!-- Order Details Card -->
+      <div class="card mb-8">
+        <h2 class="text-2xl font-bold mb-6">What's Next?</h2>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start">
+            <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0 mr-4 mt-1">
+              1
+            </div>
+            <div>
+              <h3 class="font-bold">Order Processing (24 hours)</h3>
+              <p class="text-gray-400 text-sm">We're preparing your order. You'll receive a confirmation email.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="w-8 h-8 bg-dark-700 rounded-full flex items-center justify-center flex-shrink-0 mr-4 mt-1">
+              2
+            </div>
+            <div>
+              <h3 class="font-bold">Packing & Dispatch (24-48 hours)</h3>
+              <p class="text-gray-400 text-sm">Your items are being packed. We'll send tracking number via SMS/Email.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start">
+            <div class="w-8 h-8 bg-dark-700 rounded-full flex items-center justify-center flex-shrink-0 mr-4 mt-1">
+              3
+            </div>
+            <div>
+              <h3 class="font-bold">Out for Delivery</h3>
+              <p class="text-gray-400 text-sm">Real-time tracking available. We'll notify you when the driver is nearby.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-dark-700 p-4 rounded-lg text-sm text-gray-400">
+          <p>💡 <strong>Pro Tip:</strong> Save your tracking number. You can track your order on our mobile app or website.</p>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="card mb-8">
+        <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+
+        <div id="order-summary" class="space-y-3 mb-6 pb-6 border-b border-dark-700">
+          <!-- Items will be populated -->
+        </div>
+
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="summary-subtotal">$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Discount</span>
+            <span id="summary-discount">-$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Shipping</span>
+            <span id="summary-shipping">$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Tax</span>
+            <span id="summary-tax">$0.00</span>
+          </div>
+          <div class="flex justify-between text-lg font-bold pt-3 border-t border-dark-600">
+            <span>Total</span>
+            <span id="summary-total">$0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery Address -->
+      <div class="card mb-8">
+        <h2 class="text-2xl font-bold mb-4">Delivery Address</h2>
+        <div id="delivery-address" class="text-gray-400">
+          <!-- Address will be populated -->
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        <button class="btn btn-secondary" onclick="window.location.href='/orders'">View All Orders</button>
+        <button class="btn btn-primary" onclick="window.location.href='/products'">Place Another Order</button>
+      </div>
+
+      <!-- Contact Card -->
+      <div class="card bg-dark-700/50">
+        <h3 class="font-bold mb-3">Need Help?</h3>
+        <div class="space-y-2 text-sm text-gray-400">
+          <p>📧 <strong>Email:</strong> support@wholesalejm.com</p>
+          <p>💬 <strong>WhatsApp:</strong> <a href="https://wa.me/16762262273" class="text-primary-600">Message us</a></p>
+          <p>📞 <strong>Phone:</strong> 1-876-555-0000</p>
+          <p>⏰ <strong>Hours:</strong> 8am - 10pm (Mon-Sun)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { fetchWithAuth } from '/src/services/authService.js';
+
+    async function loadOrderDetails() {
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('id');
+
+      if (!orderId) {
+        // Use mock data for demo
+        const cart = window.cart || { items: [] };
+        displayOrderDetails({
+          orderId: 'ORD-' + Date.now(),
+          items: cart.items,
+          total: cart.getTotal?.() || 0
+        });
+        return;
+      }
+
+      try {
+        const response = await fetchWithAuth(`/api/orders/${orderId}`);
+        if (response.ok) {
+          const order = await response.json();
+          displayOrderDetails(order);
+        }
+      } catch (error) {
+        console.error('Error loading order:', error);
+      }
+    }
+
+    function displayOrderDetails(order) {
+      // Order number
+      document.getElementById('order-number').textContent = `Order #${order.orderNumber || order.orderId}`;
+
+      // Order items
+      const itemsHTML = (order.items || []).map(item => `
+        <div class="flex justify-between text-sm">
+          <span>${item.name || item.productId} x${item.quantity}</span>
+          <span>$${(item.price * item.quantity).toFixed(2)}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('order-summary').innerHTML = itemsHTML || '<p class="text-gray-400">No items</p>';
+
+      // Address
+      const addr = order.deliveryAddress || {};
+      document.getElementById('delivery-address').innerHTML = `
+        <p>${addr.street || ''}</p>
+        <p>${addr.city || ''}, ${addr.parish || ''} ${addr.postalCode || ''}</p>
+      `;
+
+      // Totals
+      const subtotal = order.subtotal || order.items?.reduce((sum, i) => sum + (i.price * i.quantity), 0) || 0;
+      const discount = order.discount || 0;
+      const tax = order.tax || 0;
+      const shipping = order.shippingCost || 0;
+      const total = order.total || (subtotal - discount + tax + shipping);
+
+      document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('summary-discount').textContent = `-$${discount.toFixed(2)}`;
+      document.getElementById('summary-tax').textContent = `$${tax.toFixed(2)}`;
+      document.getElementById('summary-shipping').textContent = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
+      document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+    }
+
+    loadOrderDetails();
+  </script>
+</body>
+</html>

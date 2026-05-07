@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Wholesale Jamaica</title>
+  <link rel="stylesheet" href="/src/styles/globals.css">
+</head>
+<body class="bg-dark-900">
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-dark-900/80 backdrop-blur-md border-b border-dark-700 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center space-x-2">
+        <div class="w-8 h-8 bg-gradient-to-br from-primary-600 to-accent-blue rounded-lg"></div>
+        <span class="font-satoshi font-bold text-lg">Wholesale JM</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="pt-20 max-w-7xl mx-auto px-4 py-12">
+    <!-- Progress Steps -->
+    <div class="flex justify-between mb-12">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center font-bold">1</div>
+        <p class="ml-3">Delivery</p>
+      </div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-dark-700 rounded-full flex items-center justify-center font-bold">2</div>
+        <p class="ml-3">Payment</p>
+      </div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-dark-700 rounded-full flex items-center justify-center font-bold">3</div>
+        <p class="ml-3">Review</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Checkout Form -->
+      <div class="lg:col-span-2">
+        <form id="checkout-form" class="space-y-8">
+          <!-- Delivery Information -->
+          <div class="card">
+            <h2 class="text-2xl font-bold mb-6">Delivery Address</h2>
+            
+            <div class="space-y-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium mb-2">Street Address</label>
+                  <input type="text" id="street" required class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600 focus:ring-2 focus:ring-primary-600/30">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">City</label>
+                  <input type="text" id="city" required class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600 focus:ring-2 focus:ring-primary-600/30">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium mb-2">Parish</label>
+                  <select id="parish" required class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600">
+                    <option value="">Select parish...</option>
+                    <option value="Kingston">Kingston</option>
+                    <option value="St Andrew">St Andrew</option>
+                    <option value="Portland">Portland</option>
+                    <option value="St Thomas">St Thomas</option>
+                    <option value="St Catherine">St Catherine</option>
+                    <option value="Clarendon">Clarendon</option>
+                    <option value="Manchester">Manchester</option>
+                    <option value="St Elizabeth">St Elizabeth</option>
+                    <option value="Westmoreland">Westmoreland</option>
+                    <option value="Hanover">Hanover</option>
+                    <option value="St James">St James</option>
+                    <option value="Trelawny">Trelawny</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">Postal Code</label>
+                  <input type="text" id="postalCode" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-2">Delivery Date (Preferred)</label>
+                <input type="date" id="deliveryDate" required class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600">
+              </div>
+
+              <div>
+                <label class="flex items-center">
+                  <input type="checkbox" id="sameAddress">
+                  <span class="ml-2">Billing address same as delivery</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Information -->
+          <div class="card">
+            <h2 class="text-2xl font-bold mb-6">Payment Method</h2>
+            
+            <div class="space-y-3">
+              <label class="flex items-center p-4 border border-dark-700 rounded-lg cursor-pointer hover:bg-dark-700/50">
+                <input type="radio" name="payment" value="card" checked>
+                <span class="ml-3">Credit/Debit Card</span>
+              </label>
+
+              <label class="flex items-center p-4 border border-dark-700 rounded-lg cursor-pointer hover:bg-dark-700/50">
+                <input type="radio" name="payment" value="bank">
+                <span class="ml-3">Bank Transfer</span>
+              </label>
+
+              <label class="flex items-center p-4 border border-dark-700 rounded-lg cursor-pointer hover:bg-dark-700/50">
+                <input type="radio" name="payment" value="cash">
+                <span class="ml-3">Cash on Delivery</span>
+              </label>
+
+              <label class="flex items-center p-4 border border-dark-700 rounded-lg cursor-pointer hover:bg-dark-700/50">
+                <input type="radio" name="payment" value="whatsapp">
+                <span class="ml-3">WhatsApp Payment Link</span>
+              </label>
+            </div>
+
+            <!-- Card Details (shown when card selected) -->
+            <div id="card-details" class="mt-6 space-y-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Card Number</label>
+                <input type="text" placeholder="4532 1234 5678 9123" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600">
+              </div>
+
+              <div class="grid grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium mb-2">Expiry</label>
+                  <input type="text" placeholder="MM/YY" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">CVV</label>
+                  <input type="text" placeholder="123" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">ZIP Code</label>
+                  <input type="text" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Notes -->
+          <div class="card">
+            <h2 class="text-2xl font-bold mb-6">Order Notes</h2>
+            <textarea id="notes" rows="4" placeholder="Gate code, delivery instructions, etc." class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-lg focus:border-primary-600"></textarea>
+          </div>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div>
+        <div class="card sticky top-24">
+          <h2 class="text-2xl font-bold mb-6">Order Summary</h2>
+          
+          <div id="order-items" class="space-y-3 mb-6 pb-6 border-b border-dark-700 max-h-64 overflow-y-auto">
+            <!-- Items will be populated here -->
+          </div>
+
+          <div class="space-y-3 mb-6 pb-6 border-b border-dark-700">
+            <div class="flex justify-between">
+              <span>Subtotal</span>
+              <span id="summary-subtotal">$0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Discount</span>
+              <span id="summary-discount">-$0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Shipping</span>
+              <span id="summary-shipping">$0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Tax</span>
+              <span id="summary-tax">$0.00</span>
+            </div>
+          </div>
+
+          <div class="flex justify-between text-xl font-bold mb-6">
+            <span>Total</span>
+            <span id="summary-total">$0.00</span>
+          </div>
+
+          <button type="submit" form="checkout-form" class="w-full btn btn-primary mb-3">Complete Order</button>
+          <button type="button" class="w-full btn btn-secondary" onclick="window.location.href='/cart'">Back to Cart</button>
+
+          <div class="mt-6 p-4 bg-dark-700 rounded-lg text-sm text-gray-400">
+            <p>✓ All payments are secure</p>
+            <p>✓ Your data is encrypted</p>
+            <p>✓ No fees added</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { fetchWithAuth, isAuthenticated } from '/src/services/authService.js';
+
+    // Redirect if not authenticated
+    if (!isAuthenticated()) {
+      window.location.href = '/login';
+    }
+
+    function loadOrderSummary() {
+      const items = window.cart?.items || [];
+      const itemsHTML = items.map(item => `
+        <div class="flex justify-between text-sm">
+          <span>${item.name} x${item.quantity}</span>
+          <span>$${(item.price * item.quantity).toFixed(2)}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('order-items').innerHTML = itemsHTML || '<p class="text-gray-400">No items</p>';
+
+      // Update summary
+      const subtotal = window.cart.getTotal();
+      const discount = subtotal > 5000 ? subtotal * 0.1 : 0;
+      const tax = (subtotal - discount) * 0.15;
+      const shipping = subtotal > 5000 ? 0 : 500;
+      const total = subtotal - discount + tax + shipping;
+
+      document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('summary-discount').textContent = `-$${discount.toFixed(2)}`;
+      document.getElementById('summary-tax').textContent = `$${tax.toFixed(2)}`;
+      document.getElementById('summary-shipping').textContent = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
+      document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+    }
+
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = {
+        items: window.cart.items,
+        deliveryAddress: {
+          street: document.getElementById('street').value,
+          city: document.getElementById('city').value,
+          parish: document.getElementById('parish').value,
+          postalCode: document.getElementById('postalCode').value
+        },
+        paymentMethod: document.querySelector('input[name="payment"]:checked').value,
+        estimatedDelivery: document.getElementById('deliveryDate').value,
+        notes: document.getElementById('notes').value
+      };
+
+      try {
+        const response = await fetchWithAuth('/api/orders', {
+          method: 'POST',
+          body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) throw new Error('Order creation failed');
+
+        const data = await response.json();
+        localStorage.setItem('lastOrder', JSON.stringify(data));
+        window.location.href = '/order-confirmation?id=' + data.orderId;
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    });
+
+    loadOrderSummary();
+  </script>
+</body>
+</html>
