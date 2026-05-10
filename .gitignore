@@ -3,6 +3,9 @@ dist/
 build/
 .env
 .env.local
+.env.production
+.env.*
+!.env.example
 .env.*.local
 *.log
 npm-debug.log*

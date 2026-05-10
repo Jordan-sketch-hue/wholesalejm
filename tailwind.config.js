@@ -59,6 +59,7 @@ export default {
       boxShadow: {
         premium: '0 20px 60px -10px rgba(0, 0, 0, 0.3)',
         glow: '0 0 30px rgba(139, 92, 246, 0.4)',
+        primary: '0 25px 60px rgba(139, 92, 246, 0.22)',
       },
     },
   },

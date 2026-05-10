@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
 import dotenv from 'dotenv';
+import path from 'path';
 import { createServer } from 'http';
 import { Server as SocketIO } from 'socket.io';
 import { connectDB } from './server/database/connection.js';
@@ -85,9 +86,11 @@ app.get('/api/health', (req, res) => {
 app.use(express.static('dist'));
 
 // SPA fallback
-app.get('*', (req, res) => {
-  res.sendFile(process.cwd() + '/dist/index.html').catch(() => {
-    res.json({ message: 'Wholesale Jamaica API v1.0' });
+app.get('*', (req, res, next) => {
+  res.sendFile(path.resolve(process.cwd(), 'dist', 'index.html'), (err) => {
+    if (err) {
+      return next(err);
+    }
   });
 });
 
