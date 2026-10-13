@@ -120,15 +120,23 @@ router.post('/refresh', async (req, res) => {
       return res.status(401).json({ error: 'No token provided' });
     }
 
-    // Verify and refresh token
+    const { verifyToken } = await import('../../auth/jwt.js');
+    const decoded = verifyToken(token);
+
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+
     const newToken = generateToken({
-      id: 'user_id',
-      email: 'user_email'
+      id: user._id,
+      email: user.email
     });
 
     res.json({ token: newToken });
   } catch (error) {
-    res.status(500).json({ error: 'Token refresh failed' });
+    console.error('Token refresh error:', error);
+    res.status(401).json({ error: 'Token refresh failed' });
   }
 });
 

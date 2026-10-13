@@ -13,7 +13,8 @@
     "start": "node api.js",
     "vercel-build": "vite build",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "seed": "node server/database/seed.js"
   },
   "keywords": [
     "jamaica",
